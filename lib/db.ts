@@ -1,4 +1,5 @@
 import { Province } from "models/province.model";
+import { User } from "models/user.model";
 import { DataSource } from "typeorm";
 
 export const db = new DataSource({
@@ -8,7 +9,7 @@ export const db = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   synchronize: process.env.NODE_ENV !== "production",
-  entities: [Province],
+  entities: [Province, User],
 });
 
 db.initialize()
