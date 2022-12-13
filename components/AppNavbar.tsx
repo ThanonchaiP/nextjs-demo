@@ -24,8 +24,9 @@ import { useRouter } from "next/router";
 const Links = [
   { label: "หน้าหลัก", href: "/" },
   { label: "สินค้า (SSR)", href: "/product" },
-  { label: "แผนที่", href: "/map" },
+  { label: "แผนที่ (SSG)", href: "/map" },
   { label: "จังหวัด", href: "/province" },
+  { label: "Log in", href: "/login" },
 ];
 
 const NavLink = ({ children, href, classActive }: { children: ReactNode; href: string; classActive: string }) => (
@@ -70,7 +71,7 @@ export default function AppNavbar() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={"center"}>
+          {/* <Flex alignItems={"center"}>
             <Menu>
               <MenuButton as={Button} rounded={"full"} variant={"link"} cursor={"pointer"} minW={0}>
                 <Avatar
@@ -87,7 +88,7 @@ export default function AppNavbar() {
                 <MenuItem>Link 3</MenuItem>
               </MenuList>
             </Menu>
-          </Flex>
+          </Flex> */}
         </Flex>
 
         {isOpen ? (
