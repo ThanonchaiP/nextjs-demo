@@ -4,7 +4,7 @@ import { findByEmailUser } from "services/user.service";
 import argon2 from "argon2";
 
 export default NextAuth({
-//   useSecureCookies: false, // true สำหรับ https เท่านั้นตอน production (false for http)
+  //   useSecureCookies: false, // true สำหรับ https เท่านั้นตอน production (false for http)
   session: {
     strategy: "jwt",
     maxAge: 1 * 24 * 60 * 60, //1 day

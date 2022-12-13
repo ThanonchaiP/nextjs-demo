@@ -26,6 +26,7 @@ import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, Fi
 import { IconType } from "react-icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 interface LinkItemProps {
   name: string;
@@ -201,7 +202,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  signOut({ callbackUrl: "/" });
+                }}
+              >
+                Sign out
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>
