@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import Link from "next/link";
 import {
   IconButton,
   Avatar,
@@ -23,23 +22,23 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { FiHome, FiUser, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
+import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { IconType } from "react-icons";
-import { Router, useRouter } from "next/router";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
-  href: string;
+  link: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome, href: "/dashboard" },
-  { name: "User", icon: FiUser, href: "/dashboard/user" },
+  { name: "Home", icon: FiHome, link: "/dashboard" },
+  { name: "User", icon: FiTrendingUp, link: "/dashboard/user" },
 ];
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default function DLayout({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent onClose={() => onClose} display={{ base: "none", md: "block" }} />
@@ -92,8 +91,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <NavItem
           key={link.name}
           icon={link.icon}
-          href={link.href}
-          classActive={router.pathname === link.href ? "sidebar-active" : ""}
+          link={link.link}
+          active={router.pathname === link.link ? "menu-active" : ""}
         >
           {link.name}
         </NavItem>
@@ -105,12 +104,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactNode;
-  href: string;
-  classActive: string;
+  link: string;
+  active: string;
 }
-const NavItem = ({ icon, children, href, classActive, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, link, active, ...rest }: NavItemProps) => {
   return (
-    <Link href={href} passHref legacyBehavior>
+    <Link href={link} passHref legacyBehavior>
       <CLink style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
         <Flex
           align="center"
@@ -119,11 +118,11 @@ const NavItem = ({ icon, children, href, classActive, ...rest }: NavItemProps) =
           borderRadius="lg"
           role="group"
           cursor="pointer"
+          className={active}
           _hover={{
             bg: "cyan.400",
             color: "white",
           }}
-          className={classActive}
           {...rest}
         >
           {icon && (

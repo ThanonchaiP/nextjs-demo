@@ -25,6 +25,7 @@ const Links = [
   { label: "หน้าหลัก", href: "/" },
   { label: "สินค้า (SSR)", href: "/product" },
   { label: "แผนที่", href: "/map" },
+  { label: "จังหวัด", href: "/province" },
 ];
 
 const NavLink = ({ children, href, classActive }: { children: ReactNode; href: string; classActive: string }) => (

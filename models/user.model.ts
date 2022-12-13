@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Blog } from "./blog.model";
 
 @Entity({ name: "users" })
 export class User {
@@ -16,4 +17,7 @@ export class User {
 
   @Column({ default: "member" })
   permission?: string;
+
+  @OneToMany(() => Blog, (blog) => blog.user)
+  blog?: Blog[];
 }
