@@ -1,3 +1,5 @@
+import { Provider } from "react-redux";
+import store from "store/configureStore";
 import { SWRConfig } from "swr";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
@@ -23,10 +25,12 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <SessionProvider session={session}>
-      <SWRConfig value={{ fetcher, refreshInterval: 0 }}>
-        <ChakraProvider>{getLayout(<Component {...pageProps} />)}</ChakraProvider>
-      </SWRConfig>
-    </SessionProvider>
+    <Provider store={store}>
+      <SessionProvider session={session}>
+        <SWRConfig value={{ fetcher, refreshInterval: 0 }}>
+          <ChakraProvider>{getLayout(<Component {...pageProps} />)}</ChakraProvider>
+        </SWRConfig>
+      </SessionProvider>
+    </Provider>
   );
 }

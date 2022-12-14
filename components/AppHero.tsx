@@ -1,15 +1,35 @@
 import { Flex, Container, Heading, Stack, Text, Button, Icon, IconProps } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { getVersionAsync, selectApiVersion, selectProfile } from "slice/authSlice";
+import { useAppDispatch, useAppSelector } from "store/configureStore";
 
 export default function AppHero() {
+  const profile = useAppSelector(selectProfile);
+  const apiVersion = useAppSelector(selectApiVersion);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getVersionAsync());
+  }, [dispatch]);
+
   return (
     <Container maxW={"5xl"}>
       <Stack textAlign={"center"} align={"center"} spacing={{ base: 8, md: 10 }} py={{ base: 20, md: 28 }}>
-        <Heading fontWeight={600} fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }} lineHeight={"110%"}>
-          Meeting scheduling{" "}
-          <Text as={"span"} color={"orange.400"}>
-            made easy
-          </Text>
-        </Heading>
+        {profile && (
+          <Heading fontWeight={600} fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }} lineHeight={"110%"}>
+            Welcome{" "}
+            <Text as={"span"} color={"orange.400"}>
+              {profile.fullname}
+            </Text>
+          </Heading>
+        )}
+
+        {apiVersion && (
+          <Heading fontWeight={600} fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }} lineHeight={"110%"}>
+            Version : {apiVersion.data.version}
+          </Heading>
+        )}
+
         <Text color={"gray.500"} maxW={"3xl"}>
           Never miss a meeting. Never be late for one too. Keep track of your meetings and receive smart reminders in
           appropriate times. Read your smart “Daily Agenda” every morning.
